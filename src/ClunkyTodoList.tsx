@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 import { AddTodo } from "./AddTodo";
+import { FilterTabs } from "./FilterTabs";
 import { TaskList } from "./TaskList";
 
 export function ClunkyTodoList() {
@@ -68,13 +69,6 @@ export function ClunkyTodoList() {
     return tasks.filter((task) => task.completed).length;
   }, [tasks]);
 
-  const getTabStyle = (buttonType) => ({
-    fontWeight: filter === buttonType ? "bold" : "normal",
-    backgroundColor: filter === buttonType ? "#aaa" : "#1a1a1a",
-    padding: "0.5rem 1rem",
-    cursor: "pointer",
-  });
-
   return (
     <div className="card" style={{
       display: "flex",
@@ -98,14 +92,10 @@ export function ClunkyTodoList() {
         display: "flex",
         flexDirection: "column",
       }}>
-        <div className="subcard" style={{
-          display: "flex",
-          justifyContent: "space-evenly",
-        }}>
-          <button style={getTabStyle("all")} onClick={() => setFilter("all")}>All</button>
-          <button style={getTabStyle("active")} onClick={() => setFilter("active")}>Active</button>
-          <button style={getTabStyle("completed")} onClick={() => setFilter("completed")}>Completed</button>
-        </div>
+        <FilterTabs
+          current={filter}
+          onFilterChange={setFilter}
+        />
 
         <TaskList
           tasksToRender={tasksToRender}

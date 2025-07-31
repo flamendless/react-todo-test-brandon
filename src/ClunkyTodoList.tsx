@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 
 import { AddTodo } from "./AddTodo";
 import { FilterTabs } from "./FilterTabs";
+import { MoreActions } from "./MoreActions";
 import { TaskList } from "./TaskList";
 
 export function ClunkyTodoList() {
@@ -107,33 +108,12 @@ export function ClunkyTodoList() {
           }
         />
 
-        <div className="subcard" style={{
-          display: "flex",
-          justifyContent: "space-evenly",
-        }}>
-          <label
-            style={{
-              display: "flex",
-              alignItems: "center",
-              cursor: "pointer",
-            }}
-          >
-            <input
-              type="checkbox"
-              checked={multiWordsFilterEnabled}
-              onChange={() => setMultiWordsFilterEnabled((prev) => !prev)}
-            />
-            Multiple Words
-          </label>
-
-          <button
-            className="btn"
-            disabled={!tasks.some(task => task.completed)}
-            onClick={handleDeleteAllCompletedTasks}
-          >
-            Delete All Completed
-          </button>
-        </div>
+        <MoreActions
+          multiWordsFilterEnabled={multiWordsFilterEnabled}
+          onMultiWordsFilterEnabled={() => setMultiWordsFilterEnabled((prev) => !prev)}
+          isDisabled={!tasks.some(task => task.completed)}
+          onDeleteAllCompletedTasks={handleDeleteAllCompletedTasks}
+        />
       </div>
     </div>
   );

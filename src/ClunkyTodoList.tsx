@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 import { AddTodo } from "./AddTodo";
+import { TaskList } from "./TaskList";
 
 export function ClunkyTodoList() {
   const [tasks, setTasks] = useState([
@@ -93,7 +94,6 @@ export function ClunkyTodoList() {
 
       <AddTodo onAddTask={handleAddTask} />
 
-
       <div className="card" style={{
         display: "flex",
         flexDirection: "column",
@@ -107,50 +107,15 @@ export function ClunkyTodoList() {
           <button style={getTabStyle("completed")} onClick={() => setFilter("completed")}>Completed</button>
         </div>
 
-        <div style={{
-            overflowY: "scroll",
-            height: "30vh",
-        }}>
-          <ul style={{
-            listStyleType: "none",
-            padding: "0.5rem",
-          }}>
-            {tasksToRender.map((task, index) => (
-              <li key={index} style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginLeft: "0.5rem",
-                marginRight: "0.5rem",
-              }}>
-                <div>
-                  <input
-                    type="checkbox"
-                    checked={task.completed}
-                    onChange={() => handleToggleComplete(task.id)}
-                  />
-                  <span
-                    style={{
-                      textDecoration: task.completed ? "line-through" : "none",
-                      whitespace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                  >
-                    {task.text}
-                  </span>
-                </div>
-                <a onClick={(evt) => {
-                    evt.preventDefault();
-                    setTasks((prev) => prev.filter((t) => t.id !== task.id));
-                  }}
-                >
-                  x
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <TaskList
+          tasksToRender={tasksToRender}
+          onToggleComplete={handleToggleComplete}
+          onDeleteTask={
+            (id) => setTasks((prev) => prev.filter(
+              (task) => task.id !== id)
+            )
+          }
+        />
 
         <div className="subcard" style={{
           display: "flex",

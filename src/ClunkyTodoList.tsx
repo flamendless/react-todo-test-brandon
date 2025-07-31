@@ -53,6 +53,13 @@ export function ClunkyTodoList() {
     return tasks.filter((task) => task.completed).length;
   }, [tasks]);
 
+  const getTabStyle = (buttonType) => ({
+    fontWeight: filter === buttonType ? "bold" : "normal",
+    backgroundColor: filter === buttonType ? "#aaa" : "#1a1a1a",
+    padding: "0.5rem 1rem",
+    cursor: "pointer",
+  });
+
   return (
     <div className="card" style={{
       display: "flex",
@@ -92,9 +99,9 @@ export function ClunkyTodoList() {
           display: "flex",
           justifyContent: "space-evenly",
         }}>
-          <button onClick={() => setFilter("all")}>All</button>
-          <button onClick={() => setFilter("active")}>Active</button>
-          <button onClick={() => setFilter("completed")}>Completed</button>
+          <button style={getTabStyle("all")} onClick={() => setFilter("all")}>All</button>
+          <button style={getTabStyle("active")} onClick={() => setFilter("active")}>Active</button>
+          <button style={getTabStyle("completed")} onClick={() => setFilter("completed")}>Completed</button>
         </div>
 
         <div style={{

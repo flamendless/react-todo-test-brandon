@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 
+import { AddTodo } from "./AddTodo";
+
 export function ClunkyTodoList() {
   const [tasks, setTasks] = useState([
     { id: 1, text: "Learn React", completed: false },
@@ -10,17 +12,12 @@ export function ClunkyTodoList() {
   const [filter, setFilter] = useState("all");
   const [multiWordsFilterEnabled, setMultiWordsFilterEnabled] = useState(false);
 
-  const handleInputChange = (event) => {
-    setNewTask(event.target.value);
-  };
-
-  const handleAddTask = () => {
-    if (newTask.trim() !== "") {
-      const tempTasks = [...tasks];
-      tempTasks.push({ id: Date.now(), text: newTask, completed: false });
-      setTasks(tempTasks);
-      setNewTask("");
-    }
+  const handleAddTask = (text: string) => {
+    setTasks((prev) => [...prev, {
+      id: Date.now(),
+      text: text,
+      completed: false,
+    }]);
   };
 
   const handleDeleteAllCompletedTasks = () => {
@@ -94,19 +91,8 @@ export function ClunkyTodoList() {
         <h2>Items: {completedTotalCount}/{totalCount}</h2>
       </span>
 
-      <div className="card" style={{
-        display: "flex",
-        flexDirection: "column",
-        padding: "0.5rem",
-      }}>
-        <input
-          type="text"
-          value={newTask}
-          onChange={handleInputChange}
-          placeholder="Add new task"
-        />
-        <button className="btn" onClick={handleAddTask}>Add</button>
-      </div>
+      <AddTodo onAddTask={handleAddTask} />
+
 
       <div className="card" style={{
         display: "flex",

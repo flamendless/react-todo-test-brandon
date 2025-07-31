@@ -5,7 +5,7 @@ import { FilterTabs } from "./FilterTabs";
 import { MoreActions } from "./MoreActions";
 import { TaskList } from "./TaskList";
 
-export function ClunkyTodoList() {
+export function TodoList() {
   const [tasks, setTasks] = useState([
     { id: 1, text: "Learn React", completed: false },
     { id: 2, text: "Write code", completed: true },

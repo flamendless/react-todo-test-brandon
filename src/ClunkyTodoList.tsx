@@ -49,10 +49,15 @@ export function ClunkyTodoList() {
     return tasks.length;
   }, []);
 
+  const completedTotalCount = useMemo(() => {
+    return tasks.filter((task) => task.completed).length;
+  }, [tasks]);
+
   return (
     <div>
       <h1>To-Do List</h1>
       <h2>Items: {totalCount}</h2>
+      <h2>Items: {completedTotalCount}/{totalCount}</h2>
       <input
         type="text"
         value={newTask}

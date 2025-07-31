@@ -8,6 +8,7 @@ export function ClunkyTodoList() {
   ]);
   const [newTask, setNewTask] = useState("");
   const [filter, setFilter] = useState("all");
+  const [multiWordsFilterEnabled, setMultiWordsFilterEnabled] = useState(false);
 
   const handleInputChange = (event) => {
     setNewTask(event.target.value);
@@ -42,8 +43,16 @@ export function ClunkyTodoList() {
     } else if (filter === "active") {
       filteredTasks = tasks.filter((task) => !task.completed);
     }
+
+    if (multiWordsFilterEnabled) {
+      filteredTasks = filteredTasks.filter((task) => {
+        const words = task.text.trim().split(/\s+/).length;
+        return words >= 2;
+      });
+    }
+
     setTasksToRender(filteredTasks);
-  }, [tasks, filter]);
+  }, [tasks, filter, multiWordsFilterEnabled]);
 
   const totalCount = useMemo(() => {
     return tasks.length;
@@ -147,6 +156,26 @@ export function ClunkyTodoList() {
               </li>
             ))}
           </ul>
+        </div>
+
+        <div className="subcard" style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+        }}>
+          <label
+            style={{
+              display: "flex",
+              alignItems: "center",
+              cursor: "pointer",
+            }}
+          >
+            <input
+              type="checkbox"
+              checked={multiWordsFilterEnabled}
+              onChange={() => setMultiWordsFilterEnabled((prev) => !prev)}
+            />
+            Multiple Words
+          </label>
         </div>
       </div>
     </div>

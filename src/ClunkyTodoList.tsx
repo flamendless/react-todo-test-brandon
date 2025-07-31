@@ -116,24 +116,34 @@ export function ClunkyTodoList() {
               <li key={index} style={{
                 display: "flex",
                 alignItems: "center",
+                justifyContent: "space-between",
                 marginLeft: "0.5rem",
                 marginRight: "0.5rem",
               }}>
-                <input
-                  type="checkbox"
-                  checked={task.completed}
-                  onChange={() => handleToggleComplete(task.id)}
-                />
-                <span
-                  style={{
-                    textDecoration: task.completed ? "line-through" : "none",
-                    whitespace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
+                <div>
+                  <input
+                    type="checkbox"
+                    checked={task.completed}
+                    onChange={() => handleToggleComplete(task.id)}
+                  />
+                  <span
+                    style={{
+                      textDecoration: task.completed ? "line-through" : "none",
+                      whitespace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {task.text}
+                  </span>
+                </div>
+                <a onClick={(evt) => {
+                    evt.preventDefault();
+                    setTasks((prev) => prev.filter((t) => t.id !== task.id));
                   }}
                 >
-                  {task.text}
-                </span>
+                  x
+                </a>
               </li>
             ))}
           </ul>

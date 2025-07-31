@@ -54,40 +54,84 @@ export function ClunkyTodoList() {
   }, [tasks]);
 
   return (
-    <div>
-      <h1>To-Do List</h1>
-      <h2>Items: {totalCount}</h2>
-      <h2>Items: {completedTotalCount}/{totalCount}</h2>
-      <input
-        type="text"
-        value={newTask}
-        onChange={handleInputChange}
-        placeholder="Add new task"
-      />
-      <button onClick={handleAddTask}>Add</button>
-      <div>
-        <button onClick={() => setFilter("all")}>All</button>
-        <button onClick={() => setFilter("active")}>Active</button>
-        <button onClick={() => setFilter("completed")}>Completed</button>
+    <div className="card" style={{
+      display: "flex",
+      flexDirection: "column",
+      width: "50vw",
+      margin: "auto",
+      padding: "0.5rem",
+      backgroundColor: "#1a1a1a",
+      alignContent: "center",
+    }}>
+      <span style={{
+        textAlign: "center",
+      }}>
+        <h1>To-Do List</h1>
+        <h2>Items: {completedTotalCount}/{totalCount}</h2>
+      </span>
+
+      <div className="card" style={{
+        display: "flex",
+        flexDirection: "column",
+        padding: "0.5rem",
+      }}>
+        <input
+          type="text"
+          value={newTask}
+          onChange={handleInputChange}
+          placeholder="Add new task"
+        />
+        <button className="btn" onClick={handleAddTask}>Add</button>
       </div>
-      <ul>
-        {tasksToRender.map((task, index) => (
-          <li key={index}>
-            <input
-              type="checkbox"
-              checked={task.completed}
-              onChange={() => handleToggleComplete(task.id)}
-            />
-            <span
-              style={{
-                textDecoration: task.completed ? "line-through" : "none",
-              }}
-            >
-              {task.text}
-            </span>
-          </li>
-        ))}
-      </ul>
+
+      <div className="card" style={{
+        display: "flex",
+        flexDirection: "column",
+      }}>
+        <div className="subcard" style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+        }}>
+          <button onClick={() => setFilter("all")}>All</button>
+          <button onClick={() => setFilter("active")}>Active</button>
+          <button onClick={() => setFilter("completed")}>Completed</button>
+        </div>
+
+        <div style={{
+            overflowY: "scroll",
+            height: "30vh",
+        }}>
+          <ul style={{
+            listStyleType: "none",
+            padding: "0.5rem",
+          }}>
+            {tasksToRender.map((task, index) => (
+              <li key={index} style={{
+                display: "flex",
+                alignItems: "center",
+                marginLeft: "0.5rem",
+                marginRight: "0.5rem",
+              }}>
+                <input
+                  type="checkbox"
+                  checked={task.completed}
+                  onChange={() => handleToggleComplete(task.id)}
+                />
+                <span
+                  style={{
+                    textDecoration: task.completed ? "line-through" : "none",
+                    whitespace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {task.text}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
-  );
+  )
 }

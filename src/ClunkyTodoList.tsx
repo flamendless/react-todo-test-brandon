@@ -23,6 +23,13 @@ export function ClunkyTodoList() {
     }
   };
 
+  const handleDeleteAllCompletedTasks = () => {
+    const confirmed = window.confirm("Are you sure you want to delete all completed tasks?");
+    if (confirmed) {
+      setTasks((prevTasks) => prevTasks.filter((task) => !task.completed));
+    }
+  };
+
   const handleToggleComplete = (id) => {
     const updatedTasks = tasks.map((task) => {
       if (task.id === id) {
@@ -176,6 +183,14 @@ export function ClunkyTodoList() {
             />
             Multiple Words
           </label>
+
+          <button
+            className="btn"
+            disabled={!tasks.some(task => task.completed)}
+            onClick={handleDeleteAllCompletedTasks}
+          >
+            Delete All Completed
+          </button>
         </div>
       </div>
     </div>

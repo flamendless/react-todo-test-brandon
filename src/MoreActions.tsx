@@ -34,6 +34,7 @@ export function MoreActions({
       </label>
 
       <button
+        title="Delete all completed tasks"
         className="btn"
         disabled={isDisabled}
         onClick={onDeleteAllCompletedTasks}

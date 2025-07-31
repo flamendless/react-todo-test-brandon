@@ -30,7 +30,14 @@ export function AddTodo({ onAddTask }: AddTodoProps) {
         onChange={handleInputChange}
         placeholder="Add new task"
       />
-      <button className="btn" onClick={handleAddTask}>Add</button>
+      <button
+        title="Add new task"
+        type="button"
+        className="btn"
+        onClick={handleAddTask}
+      >
+        Add
+      </button>
     </div>
   );
 }

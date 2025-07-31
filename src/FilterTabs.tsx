@@ -21,9 +21,9 @@ export function FilterTabs({
       display: "flex",
       justifyContent: "space-evenly",
     }}>
-      <button style={getTabStyle("all")} onClick={() => onFilterChange("all")}>All</button>
-      <button style={getTabStyle("active")} onClick={() => onFilterChange("active")}>Active</button>
-      <button style={getTabStyle("completed")} onClick={() => onFilterChange("completed")}>Completed</button>
+      <button title="Filter by All" style={getTabStyle("all")} onClick={() => onFilterChange("all")}>All</button>
+      <button title="Filter by Active" style={getTabStyle("active")} onClick={() => onFilterChange("active")}>Active</button>
+      <button title="Filter by Completed" style={getTabStyle("completed")} onClick={() => onFilterChange("completed")}>Completed</button>
     </div>
   );
 }
